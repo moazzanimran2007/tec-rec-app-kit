@@ -1,75 +1,99 @@
 import { Layout } from "@/components/Layout";
 import { PageHeader } from "@/components/PageHeader";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { Heart, MessageCircle, Share2 } from "lucide-react";
 
 const Showcase = () => {
+  const { ref, isVisible } = useScrollAnimation(0.2);
   const showcaseItems = [
     {
-      id: 1,
-      image: "https://images.unsplash.com/photo-1581094794329-c8112c4e5190?w=400&h=400&fit=crop",
-      title: "Sarah's Solar Oven",
-      student: "Sarah, Grade 5",
+      student: "Alex M.",
+      project: "Solar-Powered Car",
+      description: "Modified the March project to include a custom chassis and improved solar panels!",
+      likes: 45,
     },
     {
-      id: 2,
-      image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=400&fit=crop",
-      title: "Alex's Game Design",
-      student: "Alex, Grade 7",
+      student: "Sarah K.",
+      project: "LED Music Visualizer",
+      description: "Created a sound-reactive LED display that syncs with music beats.",
+      likes: 38,
     },
     {
-      id: 3,
-      image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=400&fit=crop",
-      title: "Maya's Water Rocket",
-      student: "Maya, Grade 6",
+      student: "James L.",
+      project: "Mini Weather Station",
+      description: "Built a complete weather monitoring system with temperature, humidity, and pressure sensors.",
+      likes: 52,
     },
     {
-      id: 4,
-      image: "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=400&h=400&fit=crop",
-      title: "Jordan's Animation",
-      student: "Jordan, Grade 8",
+      student: "Emma R.",
+      project: "Recycled Robot",
+      description: "Designed a robot using 100% recycled materials from around the house.",
+      likes: 67,
     },
     {
-      id: 5,
-      image: "https://images.unsplash.com/photo-1581092583537-20d51b3e4e0b?w=400&h=400&fit=crop",
-      title: "Emma's Robot Arm",
-      student: "Emma, Grade 9",
+      student: "Michael T.",
+      project: "3D Printed Drone",
+      description: "Created custom drone parts with 3D printing and assembled a working quadcopter.",
+      likes: 91,
     },
     {
-      id: 6,
-      image: "https://images.unsplash.com/photo-1581093588401-fbb62a02f120?w=400&h=400&fit=crop",
-      title: "Liam's Circuit Board",
-      student: "Liam, Grade 8",
+      student: "Olivia P.",
+      project: "Smart Plant Monitor",
+      description: "Arduino-based system that monitors soil moisture and sends alerts when plants need water.",
+      likes: 43,
     },
   ];
 
   return (
     <Layout>
-      <PageHeader
-        title="Student Showcase"
-        subtitle="Share your final builds with the TEC REC community"
+      <PageHeader 
+        title="Student Showcase" 
+        subtitle="Amazing projects from our global TEC REC community" 
       />
       
-      <div className="container mx-auto px-4 py-12 max-w-6xl">
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {showcaseItems.map((item) => (
+      <section ref={ref} className="container mx-auto px-4 py-8 max-w-6xl">
+        <div className="grid md:grid-cols-3 gap-6">
+          {showcaseItems.map((item, index) => (
             <div
-              key={item.id}
-              className="group relative overflow-hidden rounded-lg aspect-square hover:scale-105 transition-transform duration-300"
+              key={`${item.student}-${item.project}`}
+              className={`bg-card rounded-xl overflow-hidden border-2 border-border hover:border-primary/50 hover:shadow-xl transition-all duration-500 hover:-translate-y-1 group ${
+                isVisible ? 'animate-fade-in opacity-100' : 'opacity-0'
+              }`}
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <img
-                src={item.image}
-                alt={item.title}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                  <h3 className="font-semibold text-sm mb-1">{item.title}</h3>
-                  <p className="text-xs opacity-90">{item.student}</p>
+              <div className="h-48 bg-gradient-to-br from-primary/20 via-accent/20 to-destructive/20 flex items-center justify-center">
+                <div className="text-6xl">🚀</div>
+              </div>
+              <div className="p-5">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-sm font-bold text-primary">
+                    {item.student.charAt(0)}
+                  </div>
+                  <span className="text-sm font-semibold text-card-foreground">{item.student}</span>
+                </div>
+                <h3 className="text-lg font-bold text-card-foreground mb-2">
+                  {item.project}
+                </h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                  {item.description}
+                </p>
+                <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                  <button className="flex items-center gap-1 hover:text-primary transition-colors">
+                    <Heart className="w-4 h-4" />
+                    <span>{item.likes}</span>
+                  </button>
+                  <button className="flex items-center gap-1 hover:text-primary transition-colors">
+                    <MessageCircle className="w-4 h-4" />
+                  </button>
+                  <button className="flex items-center gap-1 hover:text-primary transition-colors">
+                    <Share2 className="w-4 h-4" />
+                  </button>
                 </div>
               </div>
             </div>
           ))}
         </div>
-      </div>
+      </section>
     </Layout>
   );
 };
