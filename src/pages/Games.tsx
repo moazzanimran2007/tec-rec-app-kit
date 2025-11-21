@@ -1,82 +1,126 @@
 import { Layout } from "@/components/Layout";
-import { PageHeader } from "@/components/PageHeader";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-import { Gamepad2, Zap, Brain, Rocket } from "lucide-react";
+import { useParallax } from "@/hooks/use-parallax";
 
 const Games = () => {
-  const { ref, isVisible } = useScrollAnimation(0.2);
+  const { ref: contentRef, isVisible } = useScrollAnimation(0.1);
+  const parallaxOffset = useParallax(0.5);
 
   const games = [
     {
-      title: "Code Quest",
-      description: "Learn programming basics through interactive challenges",
-      icon: Zap,
-      color: "from-accent to-primary",
+      name: "Prodigy Math Game",
+      image: "https://images.unsplash.com/photo-1550985616-10810253b84d?q=80&w=800",
+      url: "#",
     },
     {
-      title: "Math Maze",
-      description: "Solve math puzzles and navigate through digital mazes",
-      icon: Brain,
-      color: "from-primary to-destructive",
+      name: "Bloxels",
+      image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=800",
+      url: "#",
     },
     {
-      title: "Space Explorer",
-      description: "Explore the solar system and learn about planets",
-      icon: Rocket,
-      color: "from-destructive to-accent",
+      name: "Geometry Dash",
+      image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=800",
+      url: "#",
+    },
+  ];
+
+  const gamesRow2 = [
+    {
+      name: "ChessKid",
+      image: "https://images.unsplash.com/photo-1586165368502-1bad197a6461?q=80&w=800",
+      url: "#",
     },
     {
-      title: "Circuit Builder",
-      description: "Design and test electrical circuits virtually",
-      icon: Gamepad2,
-      color: "from-accent to-primary",
+      name: "QuiverVision",
+      image: "https://images.unsplash.com/photo-1551033406-611cf9a28f67?q=80&w=800",
+      url: "#",
+    },
+    {
+      name: "Minecraft Education Edition",
+      image: "https://images.unsplash.com/photo-1587731556938-38755b4803a6?q=80&w=800",
+      url: "#",
     },
   ];
 
   return (
-    <Layout>
-      <PageHeader 
-        title="Educational Games" 
-        subtitle="Learn through play with interactive STEM games" 
-      />
-      
-      <section ref={ref} className="container mx-auto px-4 py-8 max-w-6xl">
-        <div className="grid md:grid-cols-2 gap-6">
-          {games.map((game, index) => {
-            const Icon = game.icon;
-            return (
-              <button
-                key={game.title}
-                className={`group relative overflow-hidden bg-card rounded-2xl p-8 border-2 border-border hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 text-left ${
-                  isVisible ? 'animate-fade-in opacity-100' : 'opacity-0'
-                }`}
+    <Layout showTopNav={true}>
+      {/* Hero Section with Parallax */}
+      <section className="relative h-[400px] flex items-center justify-center overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ 
+            backgroundImage: 'url(https://images.unsplash.com/photo-1611996575749-79a3a250f948?q=80&w=2070)',
+            transform: `translateY(${parallaxOffset}px)`,
+            filter: 'grayscale(30%) brightness(1.1)',
+          }}
+        >
+          <div className="absolute inset-0 bg-white/40"></div>
+        </div>
+        
+        <h1 className="relative text-6xl md:text-7xl font-bold text-gray-900 z-10">
+          Games
+        </h1>
+
+        {/* Curved Wave Divider */}
+        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+          <svg className="relative block w-full h-12 md:h-16" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" className="fill-background"></path>
+          </svg>
+        </div>
+      </section>
+
+      {/* Games Content */}
+      <section ref={contentRef} className="bg-background py-12">
+        <div className="container mx-auto px-4 max-w-7xl">
+          {/* First Row of Games */}
+          <div 
+            className={`grid md:grid-cols-3 gap-8 mb-12 transition-all duration-700 ${
+              isVisible ? 'animate-fade-in opacity-100' : 'opacity-0'
+            }`}
+          >
+            {games.map((game, index) => (
+              <div
+                key={game.name}
+                className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className={`absolute inset-0 bg-gradient-to-br ${game.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
-                
-                <div className="relative">
-                  <div className="w-16 h-16 rounded-full bg-feature-icon-bg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <Icon className="w-8 h-8 text-feature-icon-fg" />
-                  </div>
-                  
-                  <h3 className="text-2xl font-bold mb-3 text-card-foreground">
-                    {game.title}
-                  </h3>
-                  
-                  <p className="text-muted-foreground leading-relaxed mb-4">
-                    {game.description}
-                  </p>
-                  
-                  <div className="flex items-center text-primary font-semibold group-hover:translate-x-2 transition-transform duration-300">
-                    Play Now
-                    <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={game.image}
+                    alt={game.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
                 </div>
-              </button>
-            );
-          })}
+              </div>
+            ))}
+          </div>
+
+          {/* Second Row of Games */}
+          <div 
+            className={`grid md:grid-cols-3 gap-8 mb-12 transition-all duration-700 ${
+              isVisible ? 'animate-fade-in opacity-100' : 'opacity-0'
+            }`}
+            style={{ animationDelay: '0.3s' }}
+          >
+            {gamesRow2.map((game, index) => (
+              <div
+                key={game.name}
+                className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+                style={{ animationDelay: `${(index + 3) * 0.1}s` }}
+              >
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={game.image}
+                    alt={game.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Spacing before footer */}
+          <div className="h-32"></div>
         </div>
       </section>
     </Layout>
