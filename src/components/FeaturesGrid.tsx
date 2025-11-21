@@ -1,4 +1,5 @@
 import { Rocket, Image as ImageIcon, MapPin, Gamepad2 } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 interface Feature {
   icon: string;
@@ -19,8 +20,10 @@ const iconMap: Record<string, any> = {
 };
 
 export const FeaturesGrid = ({ title, items }: FeaturesGridProps) => {
+  const { ref, isVisible } = useScrollAnimation(0.2);
+  
   return (
-    <section className="py-16 px-4 bg-secondary/20">
+    <section ref={ref} className="py-16 px-4 bg-secondary/20">
       <div className="container mx-auto max-w-6xl">
         <div className="flex items-center justify-center gap-2 mb-3">
           <div className="w-1.5 h-8 bg-accent rounded-full"></div>
@@ -37,7 +40,10 @@ export const FeaturesGrid = ({ title, items }: FeaturesGridProps) => {
             return (
               <div
                 key={index}
-                className="bg-card rounded-xl p-6 border-2 border-border hover:border-primary/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group"
+                className={`bg-card rounded-xl p-6 border-2 border-border hover:border-primary/50 hover:shadow-xl transition-all duration-500 hover:-translate-y-1 group ${
+                  isVisible ? 'animate-fade-in opacity-100' : 'opacity-0'
+                }`}
+                style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="relative mb-4">
                   <div className="absolute -inset-1 bg-gradient-to-r from-accent via-primary to-destructive rounded-full blur opacity-25 group-hover:opacity-75 transition"></div>

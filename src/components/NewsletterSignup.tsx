@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 interface NewsletterSignupProps {
   title: string;
@@ -18,6 +19,7 @@ export const NewsletterSignup = ({
 }: NewsletterSignupProps) => {
   const [email, setEmail] = useState("");
   const { toast } = useToast();
+  const { ref, isVisible } = useScrollAnimation(0.2);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,8 +33,8 @@ export const NewsletterSignup = ({
   };
 
   return (
-    <section className="py-16 px-4 bg-muted/50">
-      <div className="container mx-auto max-w-2xl">
+    <section ref={ref} className="py-16 px-4 bg-muted/50">
+      <div className={`container mx-auto max-w-2xl transition-all duration-700 ${isVisible ? 'animate-fade-in opacity-100' : 'opacity-0 translate-y-10'}`}>
         <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
             {title}
