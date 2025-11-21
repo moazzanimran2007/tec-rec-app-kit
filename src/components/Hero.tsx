@@ -21,27 +21,34 @@ export const Hero = ({
   const navigate = useNavigate();
 
   return (
-    <section className="relative bg-gradient-to-br from-hero-gradient-from to-hero-gradient-to text-primary-foreground overflow-hidden">
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDE2YzAtNi42MjctNS4zNzMtMTItMTItMTJzLTEyIDUuMzczLTEyIDEyIDUuMzczIDEyIDEyIDEyIDEyLTUuMzczIDEyLTEyeiIvPjwvZz48L2c+PC9zdmc+')] opacity-20"></div>
+    <section className="relative bg-background overflow-hidden">
+      <div className="absolute inset-0">
+        <img
+          src={image}
+          alt={alt}
+          className="w-full h-full object-cover"
+          onError={(e) => {
+            e.currentTarget.src = "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=500&fit=crop";
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80"></div>
+      </div>
       
-      <div className="container mx-auto px-4 py-12 relative z-10">
+      <div className="container mx-auto px-4 py-20 md:py-32 relative z-10">
         <div className="max-w-4xl mx-auto text-center space-y-6">
-          <div className="inline-block">
+          <div className="flex justify-center mb-8">
             <img
-              src={image}
-              alt={alt}
-              className="w-full max-w-md mx-auto rounded-lg shadow-2xl mb-6"
-              onError={(e) => {
-                e.currentTarget.src = "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=500&fit=crop";
-              }}
+              src="/logo.png"
+              alt="TEC REC Club Logo"
+              className="h-32 md:h-40"
             />
           </div>
           
-          <h1 className="text-2xl md:text-3xl font-bold leading-tight">
+          <h1 className="text-xl md:text-2xl font-bold leading-tight text-white tracking-wide">
             {headline}
           </h1>
           
-          <p className="text-base md:text-lg opacity-95 max-w-2xl mx-auto">
+          <p className="text-sm md:text-base text-white/90 max-w-2xl mx-auto">
             {subheadline}
           </p>
           
@@ -50,7 +57,7 @@ export const Hero = ({
               <Button
                 size="lg"
                 onClick={() => navigate(primaryCta.to)}
-                className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold"
+                className="bg-accent text-black hover:bg-accent/90 font-bold px-8"
               >
                 {primaryCta.label}
               </Button>
@@ -60,7 +67,7 @@ export const Hero = ({
                 size="lg"
                 variant="outline"
                 onClick={() => navigate(secondaryCta.to)}
-                className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10"
+                className="border-white text-white hover:bg-white/10"
               >
                 {secondaryCta.label}
               </Button>
