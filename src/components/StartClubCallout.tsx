@@ -1,6 +1,6 @@
 import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
-import { CheckCircle2 } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 interface Step {
   title: string;
@@ -24,10 +24,11 @@ export const StartClubCallout = ({
   ctaTo,
 }: StartClubCalloutProps) => {
   const navigate = useNavigate();
+  const { ref, isVisible } = useScrollAnimation(0.2);
 
   return (
-    <section className="py-16 px-4 bg-gradient-to-br from-primary/5 to-accent/5">
-      <div className="container mx-auto max-w-5xl">
+    <section ref={ref} className="py-16 px-4 bg-gradient-to-br from-primary/5 to-accent/5">
+      <div className={`container mx-auto max-w-5xl transition-all duration-700 ${isVisible ? 'animate-scale-in opacity-100' : 'opacity-0 scale-95'}`}>
         <div className="bg-card rounded-2xl p-8 md:p-12 border-2 border-primary/20 shadow-2xl">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="w-2 h-12 bg-accent rounded-full"></div>
@@ -43,7 +44,13 @@ export const StartClubCallout = ({
           
           <div className="space-y-8 mb-10">
             {steps.map((step, index) => (
-              <div key={index} className="flex gap-6 items-center">
+              <div 
+                key={index} 
+                className={`flex gap-6 items-center transition-all duration-500 ${
+                  isVisible ? 'animate-fade-in opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
+                }`}
+                style={{ animationDelay: `${index * 0.2}s` }}
+              >
                 <div className="relative flex-shrink-0">
                   <div className="w-20 h-20 rounded-full border-4 border-primary bg-primary/10 flex items-center justify-center">
                     <span className="text-3xl font-bold text-primary">{index + 1}</span>

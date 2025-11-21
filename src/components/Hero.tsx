@@ -1,5 +1,6 @@
 import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
+import { useParallax } from "@/hooks/use-parallax";
 
 interface HeroProps {
   image: string;
@@ -19,14 +20,18 @@ export const Hero = ({
   secondaryCta,
 }: HeroProps) => {
   const navigate = useNavigate();
+  const parallaxOffset = useParallax(0.3);
 
   return (
-    <section className="relative bg-background overflow-hidden">
-      <div className="absolute inset-0">
+    <section className="relative bg-background overflow-hidden min-h-[600px] md:min-h-[700px]">
+      <div 
+        className="absolute inset-0 transition-transform duration-100 ease-out"
+        style={{ transform: `translateY(${parallaxOffset}px)` }}
+      >
         <img
           src={image}
           alt={alt}
-          className="w-full h-full object-cover"
+          className="w-full h-[120%] object-cover"
           onError={(e) => {
             e.currentTarget.src = "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=500&fit=crop";
           }}
@@ -36,23 +41,23 @@ export const Hero = ({
       
       <div className="container mx-auto px-4 py-20 md:py-32 relative z-10">
         <div className="max-w-4xl mx-auto text-center space-y-6">
-          <div className="flex justify-center mb-8">
+          <div className="flex justify-center mb-8 animate-fade-in">
             <img
               src="/logo.png"
               alt="TEC REC Club Logo"
-              className="h-32 md:h-40"
+              className="h-32 md:h-40 animate-scale-in"
             />
           </div>
           
-          <h1 className="text-xl md:text-2xl font-bold leading-tight text-white tracking-wide">
+          <h1 className="text-xl md:text-2xl font-bold leading-tight text-white tracking-wide animate-fade-in" style={{ animationDelay: "0.2s" }}>
             {headline}
           </h1>
           
-          <p className="text-sm md:text-base text-white/90 max-w-2xl mx-auto">
+          <p className="text-sm md:text-base text-white/90 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: "0.4s" }}>
             {subheadline}
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4 animate-fade-in" style={{ animationDelay: "0.6s" }}>
             {primaryCta && (
               <Button
                 size="lg"
