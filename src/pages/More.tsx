@@ -1,14 +1,17 @@
 import { Layout } from "@/components/Layout";
 import { PageHeader } from "@/components/PageHeader";
 import { useNavigate } from "react-router-dom";
-import { ChevronRight, HelpCircle, Gamepad2, Newspaper, Lightbulb, Blocks, Smartphone, Brain, Mail, Download } from "lucide-react";
+import { ChevronRight, HelpCircle, Gamepad2, Newspaper, Lightbulb, Blocks, Smartphone, Brain, Mail, Download, Info } from "lucide-react";
 
 const More = () => {
   const navigate = useNavigate();
 
   const menuItems = [
-    { label: "Install App", route: "/install", icon: Download },
+    { label: "About", route: "/about", icon: Info },
     { label: "FAQ", route: "/faq", icon: HelpCircle },
+    { label: "Projects", route: "/projects", icon: Blocks },
+    { label: "Showcase", route: "/showcase", icon: Lightbulb },
+    { label: "Videos", route: "/videos", icon: Smartphone },
     { label: "Games", route: "/games", icon: Gamepad2 },
     { label: "News", route: "/news", icon: Newspaper },
     { label: "Inventions", route: "/inventions", icon: Lightbulb },
@@ -16,6 +19,7 @@ const More = () => {
     { label: "Apps", route: "/apps", icon: Smartphone },
     { label: "AI", route: "/ai", icon: Brain },
     { label: "Contact", route: "/contact", icon: Mail },
+    { label: "Install App", route: "/install", icon: Download },
   ];
 
   return (
