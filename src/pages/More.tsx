@@ -1,12 +1,13 @@
 import { Layout } from "@/components/Layout";
 import { PageHeader } from "@/components/PageHeader";
 import { useNavigate } from "react-router-dom";
-import { ChevronRight, HelpCircle, Gamepad2, Newspaper, Lightbulb, Blocks, Smartphone, Brain, Mail } from "lucide-react";
+import { ChevronRight, HelpCircle, Gamepad2, Newspaper, Lightbulb, Blocks, Smartphone, Brain, Mail, Download } from "lucide-react";
 
 const More = () => {
   const navigate = useNavigate();
 
   const menuItems = [
+    { label: "Install App", route: "/install", icon: Download },
     { label: "FAQ", route: "/faq", icon: HelpCircle },
     { label: "Games", route: "/games", icon: Gamepad2 },
     { label: "News", route: "/news", icon: Newspaper },

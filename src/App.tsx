@@ -11,6 +11,7 @@ import More from "./pages/More";
 import StartClub from "./pages/StartClub";
 import FAQ from "./pages/FAQ";
 import Contact from "./pages/Contact";
+import Install from "./pages/Install";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/start-club" element={<StartClub />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/install" element={<Install />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
