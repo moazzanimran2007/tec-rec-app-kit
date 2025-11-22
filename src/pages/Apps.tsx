@@ -94,6 +94,9 @@ const Apps = () => {
                     }}
                   />
                 </div>
+                <h3 className="text-foreground text-2xl font-semibold mb-4">
+                  {app.name}
+                </h3>
                 <p className="text-foreground text-lg leading-relaxed">
                   {app.description}
                 </p>
